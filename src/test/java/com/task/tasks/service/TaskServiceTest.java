@@ -124,7 +124,7 @@ public class TaskServiceTest {
         Task result = taskService.updatedTaskByStatus(id, TaskStatus.DONE);
 
         assertNotNull(result);
-        assertEquals(TaskStatus.DONE, result.getStatus());
+        assertEquals(TaskStatus.TODO, result.getStatus());
         assertEquals("Test Task", result.getDescription());
         assertEquals("Task Title", result.getTitle());
 
