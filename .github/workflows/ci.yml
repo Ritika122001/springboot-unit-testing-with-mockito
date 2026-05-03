@@ -1,0 +1,22 @@
+name: Spring Boot CI/CD
+
+on:
+    push:
+        branches:  ["main"]
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup Java
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+
+            - name: Build & Test
+              run: mvn clean verify
