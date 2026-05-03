@@ -19,7 +19,7 @@ jobs:
                 java-version: '17'
 
             - name: Build & Test
-              run: mvn clean test
+              run: mvn clean verify
 
             - name: Generate Surefire Report
               run: mvn surefire-report:report
