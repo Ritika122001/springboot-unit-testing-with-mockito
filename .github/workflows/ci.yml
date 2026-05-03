@@ -20,3 +20,13 @@ jobs:
 
             - name: Build & Test
               run: mvn clean verify
+
+            - name: Generate Test Report
+              run: mvn surefire-report:report
+
+            - name: Upload Test Report
+              uses: actions/upload-artifact@v4
+              with:
+                name: test-report
+                path: target/site
+                    
