@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tasks</a> &gt; <a href="index.source.html" class="el_package">com.task.tasks.controller</a> &gt; <span class="el_source">TaskController.java</span></div><h1>TaskController.java</h1><pre class="source lang-java linenums">package com.task.tasks.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.task.tasks.dto.TaskDTO;
+import com.task.tasks.enumTask.TaskStatus;
+import com.task.tasks.model.Task;
+import com.task.tasks.service.TaskService;
+
+@RestController
+@RequestMapping(&quot;/tasks&quot;)
+public class TaskController {
+
+    private final TaskService taskService;
+
+<span class="fc" id="L26">    public TaskController(TaskService taskService) {</span>
+<span class="fc" id="L27">        this.taskService = taskService;</span>
+<span class="fc" id="L28">    }</span>
+
+    @PostMapping(&quot;/createTask&quot;)
+    public ResponseEntity&lt;Task&gt; createTask(@RequestBody TaskDTO task) {
+<span class="nc" id="L32">        Task taskCreated = taskService.createTask(task);</span>
+<span class="nc" id="L33">        return ResponseEntity.status(201).body(taskCreated);</span>
+    }
+
+    @GetMapping(&quot;/getTaskById/{id}&quot;)
+    public ResponseEntity&lt;Task&gt; getTaskById(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L38">        Task task = taskService.getTaskById(id);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (task != null) {</span>
+<span class="nc" id="L40">            return ResponseEntity.status(200).body(task);</span>
+        } else {
+<span class="nc" id="L42">            return ResponseEntity.status(404).build();</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/deleteTaskById/{id}&quot;)
+    public ResponseEntity&lt;?&gt; deleteTaskById(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L48">        boolean exist = taskService.deleteTaskById(id);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (exist) {</span>
+<span class="nc" id="L50">            return ResponseEntity.status(HttpStatus.OK).build();</span>
+        } else {
+<span class="nc" id="L52">            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();</span>
+        }
+    }
+
+    @PutMapping(&quot;/updateTaskById/{id}&quot;)
+    public ResponseEntity&lt;Task&gt; updateTaskById(@PathVariable(&quot;id&quot;) Long id, @RequestBody TaskDTO task) {
+<span class="nc" id="L58">        Task updatedTask = taskService.updateTaskById(id, task);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (updatedTask != null) {</span>
+<span class="nc" id="L60">            return ResponseEntity.status(HttpStatus.OK).body(updatedTask);</span>
+        } else {
+<span class="nc" id="L62">            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();</span>
+        }
+
+    }
+
+    @PutMapping(&quot;/updateTaskByStatus/{id}&quot;)
+    public ResponseEntity&lt;Task&gt; updatedTaskByStatus(@PathVariable(&quot;id&quot;) Long id, @RequestParam TaskStatus status) {
+<span class="nc" id="L69">        Task updatedTask = taskService.updatedTaskByStatus(id, status);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (updatedTask != null) {</span>
+<span class="nc" id="L71">            return ResponseEntity.status(HttpStatus.OK).body(updatedTask);</span>
+        } else {
+<span class="nc" id="L73">            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

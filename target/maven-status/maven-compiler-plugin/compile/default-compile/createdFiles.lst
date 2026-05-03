@@ -1,0 +1,7 @@
+com\task\tasks\TasksApplication.class
+com\task\tasks\enumTask\TaskStatus.class
+com\task\tasks\model\Task.class
+com\task\tasks\repository\TaskRepository.class
+com\task\tasks\controller\TaskController.class
+com\task\tasks\service\TaskService.class
+com\task\tasks\dto\TaskDTO.class
