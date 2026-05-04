@@ -35,11 +35,11 @@ jobs:
                 path: |
                   target/site
                   target/site/jacoco
-                  
+
     deploy-staging:
         needs: build
         runs-on: ubuntu-latest
-        if: github.ref == 'refs/heads/develop' && needs.build.result == 'success'
+        if: github.ref == 'refs/heads/mockito' && needs.build.result == 'success'
         steps:
             - name: Trigger Render Staging Deploy
               run: curl -X POST ${{ secrets.RENDER_STAGING_HOOK }}
