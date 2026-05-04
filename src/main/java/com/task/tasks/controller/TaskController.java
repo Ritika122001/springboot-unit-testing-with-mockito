@@ -27,6 +27,11 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "App is running!";
+    }
+
     @PostMapping("/createTask")
     public ResponseEntity<Task> createTask(@RequestBody TaskDTO task) {
         Task taskCreated = taskService.createTask(task);
