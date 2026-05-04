@@ -35,3 +35,11 @@ jobs:
                 path: |
                   target/site
                   target/site/jacoco
+
+    deploy:
+              needs: build
+              runs-on: ubuntu-latest
+              if: success() 
+              steps:
+                - name: Trigger Render Deploy
+                  run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
