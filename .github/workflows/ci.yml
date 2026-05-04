@@ -35,7 +35,6 @@ jobs:
                 path: |
                   target/site
                   target/site/jacoco
-
     deploy:
               needs: build
               runs-on: ubuntu-latest
