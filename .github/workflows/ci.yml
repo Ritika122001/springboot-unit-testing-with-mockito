@@ -2,7 +2,7 @@ name: Spring Boot CI/CD
 
 on:
     push:
-        branches:  ["main"]
+        branches:  ["main" , "develop"]
     pull_request:
 
 jobs:
@@ -35,11 +35,15 @@ jobs:
                 path: |
                   target/site
                   target/site/jacoco
-
-    deploy:
+    deploy-staging:
               needs: build
               runs-on: ubuntu-latest
-              if: success() 
+              if: github.ref == 'refs/heads/develop' && success()
               steps:
-                - name: Trigger Render Deploy
-                  run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+                  - run: curl -X POST ${{ secrets.RENDER_STAGING_HOOK }}
+    deploy-prod:
+              needs: build
+              runs-on: ubuntu-latest
+              if: github.ref == 'refs/heads/main' && success()
+              steps:
+                  - run: curl -X POST ${{ secrets.RENDER_PROD_HOOK }}
